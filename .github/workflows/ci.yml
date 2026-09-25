@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: [main]
 
+  workflow_dispatch:
+
 jobs:
   tests:
     name: Tests
@@ -20,6 +22,13 @@ jobs:
 
       - name: Run Tests 
         run: go test ./... -cover
+
+      - name: Install gosec
+        run: go install github.com/securego/gosec/v2/cmd/gosec@latest
+
+      - name: Security check
+        run: gosec ./...
+
 
   style:
       name: Style
@@ -42,10 +51,4 @@ jobs:
 
         - name: Linting
           run: staticcheck ./...
-
-        - name: Install gosec
-          run: go install github.com/securego/gosec/v2/cmd/gosec@latest
-
-        - name: Security check
-          run: gosec ./...
 
