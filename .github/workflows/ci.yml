@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: [main]
 
+  workflow_dispatch:
+
 jobs:
   tests:
     name: Tests
@@ -49,4 +51,3 @@ jobs:
         - name: Security check
           run: gosec ./...
 
-  workflow_dispatch:
